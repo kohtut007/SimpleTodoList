@@ -1,22 +1,22 @@
 package com.example.todolistapp.data.repo
 
 import androidx.lifecycle.LiveData
-import com.example.todolistapp.data.Todo
 import com.example.todolistapp.data.TodoDao
+import com.example.todolistapp.data.TodoItem
 
 class TodoRepository(private val todoDao: TodoDao) {
 
-    val allTodos: LiveData<List<Todo>> = todoDao.getAllTodos()
+    val allTodos: LiveData<List<TodoItem>> = todoDao.getAllTodos()
 
-    suspend fun insert(todo: Todo){
-        todoDao.insert(todo)
+    suspend fun insert(todoItem: TodoItem){
+        todoDao.insert(todoItem)
     }
 
-    suspend fun delete(todo: Todo){
-        todoDao.delete(todo)
+    suspend fun delete(todoItem: TodoItem){
+        todoDao.delete(todoItem)
     }
 
-    suspend fun update(todo: Todo){
-        todoDao.update(todo.id, todo.name)
+    suspend fun update(todoItem: TodoItem){
+        todoDao.update(todoItem.id, todoItem.name)
     }
 }

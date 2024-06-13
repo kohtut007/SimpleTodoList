@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "name_table")
-data class Todo(
+data class TodoItem(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "name") val name: String?,
 ): java.io.Serializable

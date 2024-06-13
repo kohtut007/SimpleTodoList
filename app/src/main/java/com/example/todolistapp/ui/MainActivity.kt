@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolistapp.data.TodoDatabase
-import com.example.todolistapp.data.Todo
+import com.example.todolistapp.data.TodoItem
 import com.example.todolistapp.databinding.ActivityMainBinding
 import com.example.todolistapp.ui.adapter.TodoAdapter
 import com.example.todolistapp.ui.viewmodel.TodoViewModel
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), TodoAdapter.TodoClickListener {
         val getContent =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val todo = result.data?.getSerializableExtra("todo") as? Todo
+                    val todo = result.data?.getSerializableExtra("todo") as? TodoItem
                     if (todo != null) {
                         viewModel.insertTodo(todo)
                     }
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), TodoAdapter.TodoClickListener {
     private val updateOrDeleteTodo =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val todo = result.data?.getSerializableExtra("todo") as Todo
+                val todo = result.data?.getSerializableExtra("todo") as TodoItem
                 val isDelete = result.data?.getBooleanExtra("delete_todo", false) as Boolean
                 if (todo != null && !isDelete) {
                     viewModel.updateTodo(todo)
@@ -79,9 +79,9 @@ class MainActivity : AppCompatActivity(), TodoAdapter.TodoClickListener {
         }
 
 
-    override fun onItemClicked(todo: Todo) {
+    override fun onItemClicked(todoItem: TodoItem) {
         val intent = Intent(this@MainActivity, AddTodoActivity::class.java)
-        intent.putExtra("current_todo", todo)
+        intent.putExtra("current_todo", todoItem)
         updateOrDeleteTodo.launch(intent)
     }
 }

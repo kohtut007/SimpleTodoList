@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.example.todolistapp.data.Todo
+import com.example.todolistapp.data.TodoItem
 import com.example.todolistapp.databinding.ActivityAddTodoBinding
 
 class AddTodoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddTodoBinding
-    private lateinit var todo: Todo
-    private lateinit var oldTodo: Todo
+    private lateinit var todoItem: TodoItem
+    private lateinit var oldTodoItem: TodoItem
     private var isUpdate = false
 
 
@@ -28,8 +28,8 @@ class AddTodoActivity : AppCompatActivity() {
 
     private fun initUI() {
         try {
-            oldTodo = intent.getSerializableExtra("current_todo") as Todo
-            binding.etName.setText(oldTodo.name)
+            oldTodoItem = intent.getSerializableExtra("current_todo") as TodoItem
+            binding.etName.setText(oldTodoItem.name)
             isUpdate = true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -48,13 +48,13 @@ class AddTodoActivity : AppCompatActivity() {
             if (name.isNotEmpty()) {
 
                 if (isUpdate) {
-                    todo = Todo(oldTodo.id, name)
+                    todoItem = TodoItem(oldTodoItem.id, name)
                 } else {
-                    todo = Todo(null, name)
+                    todoItem = TodoItem(null, name)
                 }
 
                 val intent = Intent()
-                intent.putExtra("todo", todo)
+                intent.putExtra("todo", todoItem)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
 
@@ -67,7 +67,7 @@ class AddTodoActivity : AppCompatActivity() {
 
         binding.ivDelete.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("todo", oldTodo)
+            intent.putExtra("todo", oldTodoItem)
             intent.putExtra("delete_todo", true)
             setResult(Activity.RESULT_OK, intent)
             finish()

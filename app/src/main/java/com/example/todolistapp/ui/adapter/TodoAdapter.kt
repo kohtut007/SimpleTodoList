@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistapp.R
-import com.example.todolistapp.data.Todo
+import com.example.todolistapp.data.TodoItem
 
 class TodoAdapter(private val context: Context, private val itemClickListener: TodoClickListener):
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
-    private val todoList = ArrayList<Todo>()
+    private val todoList = ArrayList<TodoItem>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoAdapter.TodoViewHolder {
         return TodoViewHolder(
             LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
@@ -33,7 +33,7 @@ class TodoAdapter(private val context: Context, private val itemClickListener: T
         return todoList.size
     }
 
-    fun updateList(newList: List<Todo>){
+    fun updateList(newList: List<TodoItem>){
         todoList.clear()
         todoList.addAll(newList)
         notifyDataSetChanged()
@@ -45,6 +45,6 @@ class TodoAdapter(private val context: Context, private val itemClickListener: T
     }
 
     interface TodoClickListener {
-        fun onItemClicked(todo: Todo)
+        fun onItemClicked(todoItem: TodoItem)
     }
 }
